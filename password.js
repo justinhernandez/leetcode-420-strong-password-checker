@@ -4,7 +4,7 @@
  *
  * This solution could be more dynamic but it solves the test cases.
  * Well one is still busted, will hopefully fix soon
- * 
+ *
  */
 let totalOperations;
 const minLength = 6;
@@ -127,7 +127,7 @@ const check = {
     while (currentIndex < chars.length) {
       // init pattern no need to do a global match since we just need the first
       let pattern = `${chars[currentIndex]}`;
-      pattern = pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      pattern = pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
       matchResult = s.match(new RegExp(`${pattern}{3,}`));
 
       if (matchResult && matchResult[0].length > 3) {
@@ -141,8 +141,8 @@ const check = {
         foundChars[matchResult[0].length] = {
           // set boundaries to extract weak char string
           boundaries: [startIndex, startIndex + 2],
-          foundChar:  matchResult[0][0],
-          moreThanThreeSeqChars
+          foundChar: matchResult[0][0],
+          moreThanThreeSeqChars,
         };
       }
 
@@ -153,7 +153,7 @@ const check = {
     let target = {
       boundaries: [],
       foundChar: false,
-      moreThanThreeSeqChars: false
+      moreThanThreeSeqChars: false,
     };
     const foundKeys = Object.keys(foundChars);
     // let's return our longest sequence, if matches were found
@@ -185,13 +185,18 @@ function figureOutWhatToRunNext(s) {
     runThis = "removeChars";
   }
 
-  if (check.tooLong(s) && check.hasMoreThanThreeSeqChars(s) && runThis === false) {
+  if (
+    check.tooLong(s) &&
+    check.hasMoreThanThreeSeqChars(s) &&
+    runThis === false
+  ) {
     runThis = "removeMoreThanThreeSeqChars";
   }
 
   // let's replace characters if any of the following conditions hit
   // ensure that there are NOT more than 3 sequential characters
-  if (!check.hasMoreThanThreeSeqChars(s) &&
+  if (
+    !check.hasMoreThanThreeSeqChars(s) &&
     (check.hasThreeSeqChars(s) ||
       !check.hasDigit(s) ||
       !check.hasUppercase(s) ||
@@ -207,11 +212,15 @@ function figureOutWhatToRunNext(s) {
   // handle replacing more than 3 sequential characters in a different way
   // double check that the minimum length requirement is met
   // if it is shorter, adding characters would be more efficient
-  if (check.hasMoreThanThreeSeqChars(s) && s.length >= minLength && runThis === false) {
+  if (
+    check.hasMoreThanThreeSeqChars(s) &&
+    s.length >= minLength &&
+    runThis === false
+  ) {
     runThis = "replaceMoreThanThreeSeqChars";
   }
 
-  // if the string is too short, add characters  
+  // if the string is too short, add characters
   if (check.tooShort(s) && runThis === false) {
     runThis = "addChars";
   }
