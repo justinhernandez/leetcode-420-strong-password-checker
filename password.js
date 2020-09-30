@@ -1,4 +1,7 @@
 /**
+ * Problem:
+ * https://leetcode.com/problems/strong-password-checker/
+ *
  * This is an attempt at writing a more descriptive version to the solution
  * than the terse ones available on leetcode
  *
